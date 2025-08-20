@@ -1,0 +1,58 @@
+constants:
+  jwt:
+    issuer: green@green.com
+    schema: Bearer
+
+    claim-key: signedUser
+
+    header-key: Authorization
+    secret-key: DaeguGreenArtAcademyClass502RoomForJavaSpringBootFighting
+
+    access-token-cookie-name: access-token
+
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8888/eureka
+
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  application:
+    name: scg2
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: user
+              uri: lb://GREENGRAM-USER
+              predicates:
+                - Path=/api/user/**, /pic/profile/**
+
+            - id: feed
+              uri: lb://GREENGRAM-FEED
+              predicates:
+                - Path=/api/feed, /api/feed/comment, /pic/feed/**
+
+            - id: like
+              uri: lb://GREENGRAM-LIKE
+              predicates:
+                - Path=/api/feed/like
+
+
+  jackson:
+    default-property-inclusion: non_null
+
+
+
+
