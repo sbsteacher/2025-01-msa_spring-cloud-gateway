@@ -26,6 +26,7 @@ server:
       enabled: true
       force: true
 
+
 spring:
   application:
     name: scg2
