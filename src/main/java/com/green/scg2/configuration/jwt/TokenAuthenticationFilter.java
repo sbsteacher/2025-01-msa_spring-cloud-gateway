@@ -3,6 +3,7 @@ package com.green.scg2.configuration.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.green.scg2.configuration.constants.ConstJwt;
+import com.green.scg2.configuration.model.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -32,10 +33,11 @@ public class TokenAuthenticationFilter implements WebFilter {
 
         if(authentication != null) {
             try {
-                String signedUserJson = objectMapper.writeValueAsString(authentication.getPrincipal());
+                //String signedUserJson = objectMapper.writeValueAsString(authentication.getPrincipal());
+                UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
                 ServerHttpRequest modifiedRequest = request.mutate()
-                        .header(constJwt.getClaimKey(), signedUserJson)
-                        .build();
+                                                            .header(constJwt.getClaimKey(), String.valueOf(userPrincipal.getSignedUserId()))
+                                                            .build();
 
                 ServerWebExchange modifiedExchange = exchange.mutate()
                         .request(modifiedRequest)

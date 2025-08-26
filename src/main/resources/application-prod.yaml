@@ -1,0 +1,31 @@
+eureka:
+  client:
+    enabled: false
+
+spring:
+  cloud:
+    kubernetes:
+      discovery:
+        enabled: true
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          routes:
+            - id: user
+              uri: http://greengram-user.greengram.svc.cluster.local
+              predicates:
+                - Path=/api/user/**, /pic/profile/**
+
+            - id: feed
+              uri: http://greengram-feed.greengram.svc.cluster.local
+              predicates:
+                - Path=/api/feed, /api/feed/comment, /pic/feed/**
+
+            - id: like
+              uri: http://greengram-feed-like.greengram.svc.cluster.local
+              predicates:
+                - Path=/api/feed/like

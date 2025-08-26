@@ -50,11 +50,10 @@ public class WebSecurityConfiguration {
     @Bean //스프링이 메소드 호출을 하고 리턴한 객체의 주소값을 관리한다. (빈등록)
     public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) throws Exception {
         return http
-
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
                 .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
-                .securityContextRepository(new StatelessWebSessionSecurityContextRepository())
+                .securityContextRepository(new StatelessWebSessionSecurityContextRepository()) //세션 사용 안 함
                 .authorizeExchange(exchanges -> exchanges.pathMatchers("/api/feed", "/api/feed/**").authenticated()
                         .pathMatchers(HttpMethod.GET,"/api/user").authenticated()
                         .pathMatchers(HttpMethod.PATCH,"/api/user/pic").authenticated()
@@ -64,11 +63,10 @@ public class WebSecurityConfiguration {
                 .addFilterAt(tokenAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .exceptionHandling(e -> e.authenticationEntryPoint(authenticationEntryPoint))
                 .build();
-
-
     }
 
-    //https://gose-kose.tistory.com/27
+    // https://gose-kose.tistory.com/27
+    //
     private static class StatelessWebSessionSecurityContextRepository implements ServerSecurityContextRepository {
 
         private static final Mono<SecurityContext> EMPTY_CONTEXT = Mono.empty();
