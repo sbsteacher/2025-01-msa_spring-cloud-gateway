@@ -61,7 +61,7 @@ public class JwtTokenProvider {
         if(token == null) { return null; }
 
         JwtUser jwtUser = getJwtUserFromToken(token);
-        UserPrincipal userPrincipal = new UserPrincipal(jwtUser.getSignedUserId(), jwtUser.getRoles());
+        UserPrincipal userPrincipal = new UserPrincipal(jwtUser.getSignedUserId(), jwtUser.getRoles()); //시큐리티 - 인증/인가 처리를 위해
         return new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
     }
 }

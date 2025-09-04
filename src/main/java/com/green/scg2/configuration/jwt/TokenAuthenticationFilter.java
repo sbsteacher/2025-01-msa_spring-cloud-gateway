@@ -21,7 +21,6 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class TokenAuthenticationFilter implements WebFilter {
-    private final ObjectMapper objectMapper;
     private final JwtTokenProvider jwtTokenProvider;
     private final ConstJwt constJwt;
 

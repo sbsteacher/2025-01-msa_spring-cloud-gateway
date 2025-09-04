@@ -7,6 +7,9 @@ spring:
     kubernetes:
       discovery:
         enabled: true
+      reload:
+        enabled: true
+        strategy: refresh
     gateway:
       server:
         webflux:
