@@ -15,9 +15,9 @@ public class UTF8EncodingFilter implements GlobalFilter, Ordered {
 
         // 확장자 기반으로 이미지 요청인지 판별 (jpg, png, gif, webp, svg 등)
         // 이미지 응답일 경우는 인코딩을 변경하지 않는다.
-//        if (!path.matches(".*\\.(?i)(jpg|jpeg|png|gif|bmp|webp|svg)$")) {
-//            exchange.getResponse().getHeaders().set("Content-Type", "application/json;charset=UTF-8");
-//        }
+        if (!path.matches(".*\\.(?i)(jpg|jpeg|png|gif|bmp|webp|svg)$")) {
+            exchange.getResponse().getHeaders().set("Content-Type", "application/json;charset=UTF-8");
+        }
 
         return chain.filter(exchange);
     }
