@@ -1,6 +1,8 @@
 FROM amazoncorretto:21-alpine
 
-COPY build/libs/*-SNAPSHOT.jar /deploy/app.jar/
+WORKDIR /deploy
+
+COPY build/libs/app-0.0.1-SNAPSHOT.jar app.jar
 
 RUN apk add tzdata && ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
