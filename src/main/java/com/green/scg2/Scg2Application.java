@@ -24,6 +24,7 @@ UserPrincipal이 각 서비스 프로젝트에 전달된다.
 - com.green.scg2.configuration.filter 모든 응답 처리를 UTF8 인코딩 처리
 */
 // test2
+// test3
 @ConfigurationPropertiesScan
 @SpringBootApplication
 @EnableWebFlux
