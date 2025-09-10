@@ -25,6 +25,7 @@ UserPrincipal이 각 서비스 프로젝트에 전달된다.
 */
 // test2
 // test3
+// test4
 @ConfigurationPropertiesScan
 @SpringBootApplication
 @EnableWebFlux
