@@ -19,16 +19,16 @@ spring:
               lower-case-service-id: true
           routes:
             - id: user
-              uri: http://greengram-user.greengram.svc.cluster.local
+              uri: lb://greengram-user
               predicates:
                 - Path=/api/user/**, /pic/profile/**
 
-            - id: feed
-              uri: http://greengram-feed.greengram.svc.cluster.local
-              predicates:
-                - Path=/api/feed, /api/feed/comment, /pic/feed/**
-
-            - id: like
-              uri: http://greengram-feed-like.greengram.svc.cluster.local
-              predicates:
-                - Path=/api/feed/like
+#            - id: feed
+#              uri: http://greengram-feed.greengram.svc.cluster.local
+#              predicates:
+#                - Path=/api/feed, /api/feed/comment, /pic/feed/**
+#
+#            - id: like
+#              uri: http://greengram-feed-like.greengram.svc.cluster.local
+#              predicates:
+#                - Path=/api/feed/like
