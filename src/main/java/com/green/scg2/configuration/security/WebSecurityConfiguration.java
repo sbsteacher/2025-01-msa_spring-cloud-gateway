@@ -39,7 +39,7 @@ public class WebSecurityConfiguration {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
         //configuration.setAllowedOriginPatterns(List.of("*"));
-        configuration.addAllowedOrigin("https://sbsteacher.github.io");
+        configuration.addAllowedOrigin("https://greenart.n-e.kr");
         configuration.setAllowedMethods(
                 Arrays.asList("HEAD", "GET", "POST", "PUT", "PATCH", "DELETE"));
         configuration.setAllowedHeaders(List.of("*"));
