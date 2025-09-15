@@ -18,17 +18,17 @@ spring:
               enabled: true
               lower-case-service-id: true
           routes:
-            - id: user
+            - id: greengram-user
               uri: lb://greengram-user
               predicates:
                 - Path=/api/user/**, /pic/profile/**
 
-            - id: feed
+            - id: greengram-feed
               uri: lb://greengram-feed
               predicates:
                 - Path=/api/feed, /api/feed/comment, /pic/feed/**
 
-            - id: like
+            - id: greengram-like
               uri: lb://greengram-like
               predicates:
                 - Path=/api/feed/like
