@@ -6,6 +6,7 @@ import com.green.scg2.configuration.jwt.TokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
@@ -30,18 +31,23 @@ import java.util.List;
 @EnableWebFluxSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfiguration {
-
+    private final Environment environment;
     private final TokenAuthenticationFilter tokenAuthenticationFilter;
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
 
-    @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+        String[] activeProfiles = environment.getActiveProfiles();
+
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
-        //configuration.setAllowedOriginPatterns(List.of("*"));
-        configuration.addAllowedOrigin("https://greenart.n-e.kr");
+
+        if(Arrays.asList(activeProfiles).contains("prod")) {
+            configuration.addAllowedOrigin("https://greenart.n-e.kr");
+        } else {
+            configuration.setAllowedOriginPatterns(List.of("*"));
+        }
         configuration.setAllowedMethods(
-                Arrays.asList("HEAD", "GET", "POST", "PUT", "PATCH", "DELETE"));
+                Arrays.asList("HEAD", "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -60,7 +66,7 @@ public class WebSecurityConfiguration {
                         .pathMatchers(HttpMethod.PATCH,"/api/user/pic").authenticated()
                         .anyExchange().permitAll()
                 )
-                .cors(corsSpec -> corsConfigurationSource())
+                .cors(corsSpec -> corsSpec.configurationSource(corsConfigurationSource()))
                 .addFilterAt(tokenAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .exceptionHandling(e -> e.authenticationEntryPoint(authenticationEntryPoint))
                 .build();

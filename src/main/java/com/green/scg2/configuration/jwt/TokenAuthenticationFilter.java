@@ -1,7 +1,5 @@
 package com.green.scg2.configuration.jwt;
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.green.scg2.configuration.constants.ConstJwt;
 import com.green.scg2.configuration.model.UserPrincipal;
 import lombok.RequiredArgsConstructor;
